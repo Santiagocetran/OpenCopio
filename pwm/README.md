@@ -28,6 +28,63 @@ For improved telescope pointing and tracking precision, consider upgrading to th
 | DRV8825 | Up to 1/32    | 2.5A max | - Higher current capacity<br>- Better heat handling<br>- Higher resolution | Medium-sized telescopes requiring better precision |
 | TMC2209 | Up to 1/256   | 2A max  | - Ultra-quiet operation<br>- StealthChop technology<br>- Higher efficiency<br>- Advanced features | High-precision applications where silent operation is important |
 
+## Using the PWM Test Script with L298N
+
+While waiting for upgraded drivers, you can experiment with PWM on the L298N using the provided `pwm_test.py` script:
+
+### What the Script Does
+
+The PWM test script applies pulse width modulation to the L298N control signals to:
+- Adjust power delivered to the motor (controlling torque)
+- Experiment with smoother acceleration and deceleration
+- Test motor behavior at different power levels
+
+> **Note**: This is not true microstepping (the L298N cannot do that), but rather simple power modulation.
+
+### Running the PWM Test
+
+1. Make the script executable:
+   ```bash
+   chmod +x pwm_test.py
+   ```
+
+2. Run the script:
+   ```bash
+   python pwm_test.py
+   ```
+
+3. Choose a mode when prompted:
+   - Option 1: Runs a pre-defined sequence of tests
+   - Option 2: Interactive mode for custom testing
+
+### Interactive Mode Commands
+
+- `c STEPS POWER` - Move STEPS steps clockwise at POWER% (1-100) 
+- `a STEPS POWER` - Move STEPS steps counterclockwise at POWER%
+- `s STEPS POWER DELAY` - Move with custom DELAY (in milliseconds)
+- `q` - Quit the program
+
+Example: `c 200 50` moves 200 steps clockwise at 50% power
+
+### Wiring for PWM Testing
+
+No additional wiring is needed! The script uses the same pin configuration as the original scripts:
+
+| L298N | Raspberry Pi GPIO (BCM) |
+|-------|-------------------------|
+| IN1   | 17                      |
+| IN2   | 18                      |
+| IN3   | 27                      |
+| IN4   | 22                      |
+
+### What to Observe
+
+- How different power levels affect motor torque
+- Which power levels provide smoother operation
+- How the motor sounds at different PWM settings
+- Minimum power needed for reliable movement
+- Maximum speed at different power levels
+
 ## Implementation Considerations
 
 When upgrading to these drivers:
