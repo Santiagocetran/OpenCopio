@@ -1,0 +1,4 @@
+RPi.GPIO>=0.7.0
+PyTrinamic>=1.7.0
+pyserial>=3.5
+pyindi-client>=0.2.7
